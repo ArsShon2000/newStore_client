@@ -1,9 +1,11 @@
 import React, { MutableRefObject, useRef } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import styles from '@/styles/auth/index.module.scss';
 import { SignUpForm } from '@/components/modules/AuthPage/SignUpForm';
 import { SignInForm } from '@/components/modules/AuthPage/SignInForm';
-
+import { ModeToggler } from '@/components/elements/modeToggler/ModeToggler';
+import { useStore } from 'effector-react';
+import { $mode } from '@/context/mode';
+import styles from '@/styles/auth/index.module.scss';
 
 
 export const AuthPage = () => {
@@ -15,6 +17,8 @@ export const AuthPage = () => {
     let switchCircle2 = useRef() as MutableRefObject<HTMLDivElement>;
     let aContainer = useRef() as MutableRefObject<HTMLDivElement>;
     let bContainer = useRef() as MutableRefObject<HTMLDivElement>;
+    const mode = useStore($mode)
+    const darkModeClass = mode === 'dark' ? `${styles.dark_mode}` : ''
 
     const switchForm = () => {
 
@@ -34,9 +38,12 @@ export const AuthPage = () => {
     }
 
     return (
-        <div className={styles.main}>
+        <div className={`${styles.main} ${darkModeClass}`}>
+            <div className={styles.mode_toggle}>
+                <ModeToggler />
+            </div>
             <div
-                className={`${styles.container} ${styles.a_container}`}
+                className={`${styles.container} ${styles.a_container} ${darkModeClass}`}
                 id="a-container"
                 ref={aContainer}
             >
@@ -45,7 +52,7 @@ export const AuthPage = () => {
                 </div>
             </div>
             <div
-                className={`${styles.container} ${styles.b_container}`}
+                className={`${styles.container} ${styles.b_container} ${darkModeClass}`}
                 id="b-container"
                 ref={bContainer}
             >
@@ -55,33 +62,33 @@ export const AuthPage = () => {
 
             </div>
             <div
-                className={styles.switch}
+                className={`${styles.switch} ${darkModeClass}`}
                 id="switch-cnt"
                 ref={switchCtn}
             >
-                <div className={styles.switch__circle} ref={switchCircle1} />
-                <div className={`${styles.switch__circle} ${styles.switch__circle__t}`} ref={switchCircle2} />
+                <div className={`${styles.switch__circle} ${darkModeClass}`} ref={switchCircle1} />
+                <div className={`${styles.switch__circle} ${styles.switch__circle__t} ${darkModeClass}`} ref={switchCircle2} />
                 <div className={styles.switch__container} id="switch-c1" ref={switchC1}>
                     {!isMedia800 && <>
-                        <h2 className={`${styles.switch__title} ${styles.title}`}>Добро пожаловать!</h2>
-                        <p className={`${styles.switch__description} ${styles.description}`}>
+                        <h2 className={`${styles.switch__title} ${styles.title} ${darkModeClass}`}>Добро пожаловать!</h2>
+                        <p className={`${styles.switch__description} ${styles.description} ${darkModeClass}`}>
                             Проходите регистрацию чтобы оставатся на связи, далее к закупкам
                         </p>
                     </>}
                     <button
-                        className={`${styles.switch__button} ${styles.button} ${styles.switch_btn}`}
+                        className={`${styles.switch__button} ${styles.button} ${styles.switch_btn} ${darkModeClass}`}
                         onClick={switchForm}
                     >SIGN IN</button>
                 </div>
                 <div className={`${styles.switch__container} ${styles.is_hidden}`} id="switch-c2" ref={switchC2}>
                     {!isMedia800 && <>
-                        <h2 className={`${styles.switch__title} ${styles.title}`}>Привет, друг!</h2>
-                        <p className={`${styles.witch__description} ${styles.description}`}>
+                        <h2 className={`${styles.switch__title} ${styles.title} ${darkModeClass}`}>Привет, друг!</h2>
+                        <p className={`${styles.witch__description} ${styles.description} ${darkModeClass}`}>
                             Вводите Ваши персональные данные и начните присоедяться к нам
                         </p>
                     </>}
                     <button
-                        className={`${styles.switch__button} ${styles.button} ${styles.switch_btn}`}
+                        className={`${styles.switch__button} ${styles.button} ${styles.switch_btn} ${darkModeClass}`}
                         onClick={switchForm}
                     >SIGN UP</button>
                 </div>
