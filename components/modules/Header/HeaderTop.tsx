@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from '@/styles/header/index.module.scss';
 import Link from 'next/link';
 import CityButton from '@/components/elements/CityButton/CityButton';
+import ProfileDropDown from './ProfileDropDown';
+import styles from '@/styles/header/index.module.scss';
 
 const HeaderTop = () => {
     return (
-        <header className={styles.header__top}>
+        <div className={styles.header__top}>
             <div className={`container ${styles.header__top__container}`}>
                 <CityButton />
                 <nav className={styles.header__nav}>
@@ -47,8 +48,9 @@ const HeaderTop = () => {
                         </li>
                     </ul>
                 </nav>
+                <ProfileDropDown />
             </div>
-        </header>
+        </div>
     );
 };
 

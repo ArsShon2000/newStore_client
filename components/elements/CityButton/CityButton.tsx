@@ -1,8 +1,8 @@
 import React from 'react';
-import LocationSVG from '../LocationSVG/LocationSVG';
-import styles from '@/styles/cityButton/cityButton.module.scss';
 import { useStore } from 'effector-react';
+import LocationSVG from '../LocationSVG/LocationSVG';
 import { $mode } from '@/context/mode';
+import styles from '@/styles/cityButton/cityButton.module.scss';
 
 const CityButton = () => {
     const mode = useStore($mode)

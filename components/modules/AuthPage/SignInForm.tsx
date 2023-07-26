@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useStore } from 'effector-react';
 import { useForm } from 'react-hook-form';
 import { NameInput } from '@/components/elements/AuthPage/NameInput';
-import { toast } from 'react-toastify';
 import { IInput } from '@/types/auth';
 import { PasswordInput } from '@/components/elements/AuthPage/PasswordInput';
 import { signInFx } from '@/app/api/auth';
