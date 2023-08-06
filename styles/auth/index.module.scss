@@ -148,7 +148,7 @@ $transition: 1.25s;
 
 .title {
     margin: 0;
-    font-size: 34px;
+    font-size: 33px;
     font-weight: 700;
     margin-bottom: 20px;
     color: $black;
@@ -292,7 +292,7 @@ $transition: 1.25s;
             inset 8px 8px 12px $neu-2,
             inset -8px -8px 12px $white;
 
-        bottom: -60%;
+        bottom: -45%;
         left: -30%;
         transition: $transition, background-color 0s;
 

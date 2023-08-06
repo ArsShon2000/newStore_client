@@ -2,9 +2,10 @@ import { useStore } from "effector-react";
 import { $mode } from "@/context/mode";
 import Link from "next/link";
 import SearchSvg from "@/components/elements/SearchSvg/SearchSvg";
-import styles from "@/styles/header/index.module.scss";
 import SearchInput from './../../elements/Header/SearchInput';
 import { ModeToggler } from "@/components/elements/modeToggler/ModeToggler";
+import CartPopup from "./CartPopup/CartPopup";
+import styles from "@/styles/header/index.module.scss";
 
 const HeaderBottom = () => {
   const mode = useStore($mode);
@@ -35,7 +36,7 @@ const HeaderBottom = () => {
         </div>
         <div className="div">
             <ModeToggler />
-            <button>Корзина</button>
+            <CartPopup />
         </div>
       </div>
     </div>

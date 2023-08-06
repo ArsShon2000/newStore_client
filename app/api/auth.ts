@@ -22,6 +22,8 @@ export const signUpFx = createEffect(
 export const signInFx = createEffect(
     async ({ url, username, password }: ISignInFx) => {
         const { data } = await api.post(url, { username, password })
+
+        console.log(api);
         
         toast.success('Вы успешно вошли в аккаунт!')
 

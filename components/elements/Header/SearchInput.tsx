@@ -4,7 +4,12 @@ import React, { useState } from "react";
 import { $mode } from "@/context/mode";
 import styles from "@/styles/header/index.module.scss";
 import { SelectOptionType } from "@/types/comman";
-import { controlStyles, inputStyles, menuStyles, optionStyles } from "@/styles/searchInput/searchInput";
+import {
+  controlStyles,
+  inputStyles,
+  menuStyles,
+  optionStyles,
+} from "@/styles/searchInput/searchInput";
 
 const SearchInput = () => {
   const mode = useStore($mode);
@@ -22,20 +27,24 @@ const SearchInput = () => {
       styles={{
         ...inputStyles,
         control: (defaultStyles) => ({
-            ...controlStyles(defaultStyles, mode),
+          ...controlStyles(defaultStyles, mode),
         }),
         input: (defaultStyles) => ({
-            ...defaultStyles, 
-            color: mode === 'dark' ? '#f2f2f2' : '#222222',
+          ...defaultStyles,
+          color: mode === "dark" ? "#f2f2f2" : "#222222",
         }),
         menu: (defaultStyles) => ({
-            ...menuStyles(defaultStyles, mode),
+          ...menuStyles(defaultStyles, mode),
         }),
         option: (defaultStyles, state) => ({
-            ...optionStyles(defaultStyles, state, mode),
+          ...optionStyles(defaultStyles, state, mode),
         }),
       }}
-      options={[1,3,4,5,6,7].map((item) => ({ value: item, label: item }))}
+      isClearable={true}
+      openMenuOnClick={false}
+      options={[1, 3, 4, 5, 6, 7, 24, 34, 14, 12, 87, 15, 16, 17, 20].map(
+        (item) => ({ value: item, label: item })
+      )}
     />
   );
 };
