@@ -6,8 +6,10 @@ import SearchInput from './../../elements/Header/SearchInput';
 import { ModeToggler } from "@/components/elements/modeToggler/ModeToggler";
 import CartPopup from "./CartPopup/CartPopup";
 import styles from "@/styles/header/index.module.scss";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const HeaderBottom = () => {
+  const isMedia950 = useMediaQuery(950);
   const mode = useStore($mode);
   const darkModeClass = mode === "dark" ? `${styles.dark_mode}` : "";
 
@@ -28,14 +30,14 @@ const HeaderBottom = () => {
         </h1>
         <div className={styles.header__search}>
             <SearchInput />
-            <button className={styles.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}>
-                <span>
+            <button className={`${styles.header__search__btn} ${darkModeClass}`}>
+                <span className={styles.header__search__btn__span}>
                     <SearchSvg />
                 </span>
             </button>
         </div>
-        <div className="div">
-            <ModeToggler />
+        <div className={styles.header__shopping__cart}>
+            {!isMedia950 &&  <ModeToggler />}
             <CartPopup />
         </div>
       </div>

@@ -23,6 +23,11 @@ const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentsProps>(
           className={`${styles.cart__btn} ${darkModeClass}`}
           onClick={toggleCartDropDown}
         >
+          {!!shoppingCart.length &&(
+            <span className={styles.cart__btn__count}>
+              {shoppingCart.length}
+            </span>
+          )}
           <span className={styles.cart__svg}>
             <ShoppingCartSvg />
           </span>
