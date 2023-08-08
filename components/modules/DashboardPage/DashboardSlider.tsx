@@ -8,25 +8,13 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import styles from "@/styles/dashboard/dashboard.module.scss";
 import BrandsSliderNextArrow from "@/components/elements/BrandsSliderNextArrow/BrandsSliderNextArrow";
 import BrandsSliderPrevArrow from "@/components/elements/BrandsSliderPrevArrow/BrandsSliderPrevArrow";
+import { IDashboardSlider } from "@/types/dashboard";
 
-const BrandSlider = () => {
+const DashboardSlider = ({ items, spinner }: IDashboardSlider) => {
   const isMedia768 = useMediaQuery(768);
   const mode = useStore($mode);
   const darkModeClass = mode === "dark" ? `${styles.dark_mode}` : "";
-  const brandItems = [
-    { id: 1, img: "/img/brand-1.png", alt: "brand-1" },
-    { id: 2, img: "/img/brand-2.png", alt: "brand-2" },
-    { id: 3, img: "/img/brand-3.png", alt: "brand-3" },
-    { id: 4, img: "/img/brand-4.png", alt: "brand-4" },
-    { id: 5, img: "/img/brand-1.png", alt: "brand-1" },
-    { id: 6, img: "/img/brand-2.png", alt: "brand-2" },
-    { id: 7, img: "/img/brand-3.png", alt: "brand-3" },
-    { id: 8, img: "/img/brand-4.png", alt: "brand-4" },
-    { id: 9, img: "/img/brand-1.png", alt: "brand-1" },
-    { id: 10, img: "/img/brand-2.png", alt: "brand-2" },
-    { id: 11, img: "/img/brand-3.png", alt: "brand-3" },
-    { id: 12, img: "/img/brand-4.png", alt: "brand-4" },
-  ];
+
 
   useEffect(() => {
     const slider = document.querySelector(
@@ -50,17 +38,11 @@ const BrandSlider = () => {
   };
   return (
     <Slider {...settings} className={styles.dashboard__brands__slider}>
-      {brandItems.map((item) => (
-        <div
-          key={item.id}
-          className={`${styles.dashboard__brands__slide} ${darkModeClass}`}
-          style={{ width: isMedia768 ? 124 : 180 }}
-        >
-          <img src={item.img} alt={item.alt} />
-        </div>
-      ))}
+      {spinner ? (
+        [...Array(8)]
+      )}
     </Slider>
   );
 };
 
-export default BrandSlider;
+export default DashboardSlider;
