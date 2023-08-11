@@ -1,7 +1,7 @@
 export interface IBoilerPart {
     id: number;
     boiler_manufacturer: string;
-    price: string;
+    price: number;
     parts_manufacturer: string;
     vendor_code: string;
     name: string;
@@ -12,4 +12,9 @@ export interface IBoilerPart {
     bestseller: boolean;
     new: boolean;
     popularity: number;
+}
+
+export interface IBoilerParts {
+    count: number;
+    rows: IBoilerPart[]
 }

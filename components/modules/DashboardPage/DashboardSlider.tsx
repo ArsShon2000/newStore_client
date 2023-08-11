@@ -5,41 +5,86 @@ import "slick-carousel/slick/slick-theme.css";
 import { useStore } from "effector-react";
 import { $mode } from "@/context/mode";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import styles from "@/styles/dashboard/dashboard.module.scss";
-import BrandsSliderNextArrow from "@/components/elements/BrandsSliderNextArrow/BrandsSliderNextArrow";
-import BrandsSliderPrevArrow from "@/components/elements/BrandsSliderPrevArrow/BrandsSliderPrevArrow";
 import { IDashboardSlider } from "@/types/dashboard";
+import styles from "@/styles/dashboard/dashboard.module.scss";
+import skeletonstyles from "@/styles/skeleton/skeleton.module.scss";
+import Link from "next/link";
+import { formatPrice } from "@/utils/common";
 
-const DashboardSlider = ({ items, spinner }: IDashboardSlider) => {
-  const isMedia768 = useMediaQuery(768);
+const DashboardSlider = ({ items, spinner, goToPartPage }: IDashboardSlider) => {
+    const isMedia768 = useMediaQuery(768);
+    const isMedia1366 = useMediaQuery(1366);
+    const isMedia1030 = useMediaQuery(1030);
+    const isMedia800 = useMediaQuery(800);
+    const isMedia560 = useMediaQuery(560);
   const mode = useStore($mode);
   const darkModeClass = mode === "dark" ? `${styles.dark_mode}` : "";
 
 
   useEffect(() => {
-    const slider = document.querySelector(
-      `.${styles.dashboard__brands__slider}`
-    );
+    const slider = document.querySelectorAll(`.${styles.dashboard__slider}`);
 
-    const list = slider?.querySelector(".slick-list") as HTMLElement;
+    slider.forEach((item) => {
+      const list = item.querySelector('.slick-list') as HTMLElement
 
-    list.style.height = isMedia768 ? "60px" : "80px";
-  }, [isMedia768]);
+      list.style.height = isMedia560 ? '276px' : '390px'
+      list.style.padding = '0 5px'
+      list.style.marginRight = isMedia560 ? '-8px' : isMedia800 ? '-15px' : '0'
+    }) 
+  }, [isMedia560, isMedia800]);
 
   const settings = {
     dots: false,
     infinite: true,
     variableWidth: true,
-    slidesToScroll: 1,
     autoplay: true,
     speed: 500,
-    nextArrow: <BrandsSliderNextArrow modeClass={darkModeClass} />,
-    prevArrow: <BrandsSliderPrevArrow modeClass={darkModeClass} />,
+    arrows: false,
+    // slidesToShow: items.length >= 4 ? (isMedia1030 ? 3 : 4) : items.length - 1,
+    slidesToScroll: isMedia768 ? 1 : 2
   };
+
+  const width = {
+    width: isMedia1366 ? (isMedia800 ? (isMedia560 ? 160 : 252) : 317) : 344
+  }
+
   return (
-    <Slider {...settings} className={styles.dashboard__brands__slider}>
+    <Slider {...settings} className={styles.dashboard__slider}>
       {spinner ? (
-        [...Array(8)]
+        [...Array(8)].map((item) => (
+          <div
+            className={`${skeletonstyles.skeleton__item} ${
+              mode === "dark" ? `${skeletonstyles.dark_mode}` : ""
+            }`}
+            key={item}
+            style={width}
+          >
+            <div className={skeletonstyles.skeleton__item__light} />
+          </div>
+        ))
+      ) : items.length ? (
+        items.map((item) => (
+          <div
+            key={item.id}
+            className={`${styles.dashboard__slide} ${darkModeClass}`}
+            style={width}
+          >
+            <img src={JSON.parse(item.images)[0]} alt={item.name} />
+            <div className={styles.dashboard__slide__inner}>
+              <Link href={goToPartPage ? `/catalog/${item.id}` : "/catalog"} legacyBehavior passHref>
+                <a href="">
+                  <h3 className={styles.dashboard__slide__title}>
+                    {item.name}
+                  </h3>
+                </a>
+              </Link>
+              <span className={styles.dashboard__slide__code}>Артикул: {item.vendor_code}</span>
+              <span className={styles.dashboard__slide__price}>{formatPrice(item.price)} P</span>
+            </div>
+          </div>
+        ))
+      ) : (
+        <span>Список товаров пуст ....</span>
       )}
     </Slider>
   );
