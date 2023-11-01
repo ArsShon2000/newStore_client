@@ -7,13 +7,23 @@ import { $mode } from "@/context/mode";
 import LogoutSvg from "@/components/elements/LogoutSvg/LogoutSvg";
 import { withClickOutside } from "@/utils/withClickOutside";
 import styles from "@/styles/profileDropDown/profileDropDown.module.scss";
+import { $user } from "@/context/user";
+import { logoutFx } from "@/app/api/auth";
+import { useRouter } from "next/router";
 
 const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentsProps>(
   ({ open, setOpen }, ref) => {
     const mode = useStore($mode);
+    const user = useStore($user);
+    const router = useRouter();
     const darkModeClass = mode === "dark" ? `${styles.dark_mode}` : "";
 
-    const toggleProfileDropDown = () => setOpen(!open)
+    const toggleProfileDropDown = () => setOpen(!open);
+
+    const handleLogout = async () => {
+      await logoutFx("/users/logout");
+      router.push("/");
+    };
 
     return (
       <div className={styles.profile} ref={ref}>
@@ -32,17 +42,30 @@ const ProfileDropDown = forwardRef<HTMLDivElement, IWrappedComponentsProps>(
               style={{ transformOrigin: "right top" }}
             >
               <li className={styles.profile__dropdown__user}>
-                <span className={`${styles.profile__dropdown__username} ${darkModeClass}`}>Ars</span>
-                <span className={`${styles.profile__dropdown__email} ${darkModeClass}`}>
-                  Ars@gmail.com
+                <span
+                  className={`${styles.profile__dropdown__username} ${darkModeClass}`}
+                >
+                  {user.username}
+                </span>
+                <span
+                  className={`${styles.profile__dropdown__email} ${darkModeClass}`}
+                >
+                  {user.email}
                 </span>
               </li>
               <li className={styles.profile__dropdown__item}>
-                <button className={styles.profile__dropdown__item__btn}>
-                  <span className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}>
+                <button
+                  className={styles.profile__dropdown__item__btn}
+                  onClick={handleLogout}
+                >
+                  <span
+                    className={`${styles.profile__dropdown__item__text} ${darkModeClass}`}
+                  >
                     Выйти
                   </span>
-                  <span className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}>
+                  <span
+                    className={`${styles.profile__dropdown__item__svg} ${darkModeClass}`}
+                  >
                     <LogoutSvg />
                   </span>
                 </button>

@@ -1,14 +1,14 @@
 import Layout from "@/components/layout/Layout";
-import { DashboardPage } from "@/components/templates/DashboardPage/DashboardPage";
+import CatalogPage from "@/components/templates/Catalog/CatalogPage";
 import useRedirectByCheck from "@/hooks/useRedirectByCheck";
 import Head from "next/head";
 
-export default function Dashboard() {
+export default function Catalog() {
   const { shouldLoadContent } = useRedirectByCheck()
   return (
     <>
       <Head>
-        <title>Hamsters | {shouldLoadContent ? 'Главная' : ''}</title>
+        <title>Hamsters | {shouldLoadContent ? 'Каталог' : ''}</title>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,7 +16,7 @@ export default function Dashboard() {
       </Head>
       { shouldLoadContent && <Layout>
         <main>
-          <DashboardPage />
+          <CatalogPage />
           <div className="overlay" />
         </main>
       </Layout>}
